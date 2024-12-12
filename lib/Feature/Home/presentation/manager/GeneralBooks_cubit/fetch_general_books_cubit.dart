@@ -14,22 +14,16 @@ class FetchGeneralBooksCubit extends Cubit<FetchGeneralBooksState> {
     this.apiService,
   ) : super(FetchGeneralBooksInitial());
 
-  
-
-
-
-Future<void> featchGeneralBooks()async{
+  Future<void> featchGeneralBooks() async {
     emit(LoadingFetchGeneralBooks());
-  
-  try {
-  var result =await  apiService.get('https://www.googleapis.com/books/v1/volumes?Filtering=free-ebooks&q=subject:programming');
-  emit(SuccessFetchGeneralBooks(List_books: result));
-} on ServerException catch (e) {
-    emit(FaluireFetchGeneralBooks(Erro_message: e.errormodel.errors[0].toString()));
-}
-  
-    
 
-
+    try {
+      var result = await apiService.get(
+          'https://www.googleapis.com/books/v1/volumes?Filtering=free-ebooks&q=subject:programming');
+      emit(SuccessFetchGeneralBooks(List_books: result));
+    } on ServerException catch (e) {
+      emit(FaluireFetchGeneralBooks(
+          Erro_message: e.errormodel.errors[0].toString()));
+    }
   }
 }
