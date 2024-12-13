@@ -1,7 +1,7 @@
 import 'package:bookapp/Feature/Home/presentation/views/widgets/Slide_Text.dart';
 
 import 'package:bookapp/core/utlies/AssetData.dart';
-import 'package:bookapp/main.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
