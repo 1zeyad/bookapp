@@ -14,7 +14,7 @@ class BestSellerCubit extends Cubit<BestSellerState> {
   ) : super(BestSellerInitial());
    final ApiService apiService;
 
-  Future<void> featchGeneralBooks() async {
+  Future<void> featchSellerBooks() async {
     emit(Loading_BestSellerBooks());
 
     try {
@@ -23,7 +23,7 @@ class BestSellerCubit extends Cubit<BestSellerState> {
       emit(Success_BestSellerBooks(List_books: result));
     } on ServerException catch (e) {
       emit(FaluireFetch_BestSeller_Books(
-          Erro_message: e.errormodel.errors[0].toString()));
+          Erro_message: e.errormodel.error!.message ??'ssdd'));
     }
   }
 }

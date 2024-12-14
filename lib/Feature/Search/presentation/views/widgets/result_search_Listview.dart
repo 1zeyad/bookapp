@@ -11,7 +11,8 @@ class result_search_Listview extends StatelessWidget {
         itemCount: 100,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          return BestSeller_item();
+          return Text('data');
+          // BestSeller_item(bookModel:,);
         });
   }
 }

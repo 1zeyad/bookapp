@@ -1,3 +1,4 @@
+import 'package:bookapp/Feature/Home/Data/models/book_model/book_model.dart';
 import 'package:bookapp/Feature/Home/presentation/views/widgets/Custom_Rating_book.dart';
 import 'package:bookapp/Feature/Home/presentation/views/widgets/book_image.dart';
 
@@ -9,7 +10,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class BestSeller_item extends StatelessWidget {
-  const BestSeller_item({super.key});
+  const BestSeller_item({super.key, required this.bookModel});
+final BookModel bookModel;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class BestSeller_item extends StatelessWidget {
           height: 120,
           child: Row(
             children: [
-              Book_image(),
+              Book_image(image_url: bookModel.volumeInfo.imageLinks.smallThumbnail,),
               const SizedBox(
                 width: 40,
               ),
@@ -32,17 +34,17 @@ class BestSeller_item extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .50,
-                    child: const Text(
+                    child:  Text(
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      'Harry Potter and the Goblet of fire Harry Potter ',
+                      bookModel.volumeInfo.title!,
                       style: Style.textstyle18,
                     ),
                   ),
                   const SizedBox(
                     height: 3,
                   ),
-                  const Text('J.k Rowling'),
+                   Text(bookModel.volumeInfo.authors![0]),
                   const SizedBox(
                     height: 3,
                   ),

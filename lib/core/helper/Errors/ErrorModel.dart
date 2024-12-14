@@ -1,44 +1,49 @@
-class Errormodel {
-  final int code;
-  final String message;
-  final List<ErrorDetail> errors;
 
-  Errormodel({
-    required this.code,
-    required this.message,
-    required this.errors,
-  });
 
-  factory Errormodel.fromJson(Map<String, dynamic> json) {
-    return Errormodel(
-      code: json['code'],
-      message: json['message'],
-      errors: (json['errors'] as List)
-          .map((error) => ErrorDetail.fromJson(error))
-          .toList(),
-    );
-  }
+import 'package:equatable/equatable.dart';
 
-  
+
+
+class Errormodel extends Equatable {
+	final Error? error;
+
+	const Errormodel({this.error});
+
+	factory Errormodel.fromJson(Map<String, dynamic> json) => Errormodel(
+				error: json['error'] == null
+						? null
+						: Error.fromJson(json['error'] as Map<String, dynamic>),
+			);
+
+	Map<String, dynamic> toJson() => {
+				'error': error?.toJson(),
+			};
+
+	@override
+	List<Object?> get props => [error];
 }
 
-class ErrorDetail {
-  final String message;
-  final String domain;
-  final String reason;
+class Error extends Equatable {
+	final int? code;
+	final String? message;
+	final List<Error>? errors;
 
-  ErrorDetail({
-    required this.message,
-    required this.domain,
-    required this.reason,
-  });
+	const Error({this.code, this.message, this.errors});
 
-  factory ErrorDetail.fromJson(Map<String, dynamic> json) {
-    return ErrorDetail(
-      message: json['message'],
-      domain: json['domain'],
-      reason: json['reason'],
-    );
-  }
+	factory Error.fromJson(Map<String, dynamic> json) => Error(
+				code: json['code'] as int?,
+				message: json['message'] as String?,
+				errors: (json['errors'] as List<dynamic>?)
+						?.map((e) => Error.fromJson(e as Map<String, dynamic>))
+						.toList(),
+			);
 
+	Map<String, dynamic> toJson() => {
+				'code': code,
+				'message': message,
+				'errors': errors?.map((e) => e.toJson()).toList(),
+			};
+
+	@override
+	List<Object?> get props => [code, message, errors];
 }

@@ -10,7 +10,7 @@ sealed class FetchGeneralBooksState extends Equatable {
 final class FetchGeneralBooksInitial extends FetchGeneralBooksState {}
 
 final class SuccessFetchGeneralBooks extends FetchGeneralBooksState {
-  final List<BookModel> List_books ;
+  final List<BookModel>  List_books ;
 
   SuccessFetchGeneralBooks({required this.List_books});
 }

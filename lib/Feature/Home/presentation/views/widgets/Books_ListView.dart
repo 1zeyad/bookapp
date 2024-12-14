@@ -26,7 +26,7 @@ class booksListView extends StatelessWidget {
                 return  Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.0),
                   child: Custom_ListView_item(
-                    imageUrl:state.List_books[index].volumeInfo.imageLinks.thumbnail ,
+                    imageUrl:state.List_books![index].volumeInfo.imageLinks.thumbnail ,
                   ),
                 );
               }),

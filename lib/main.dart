@@ -24,7 +24,7 @@ class Booklyapp extends StatelessWidget {
           create: (context) =>FetchGeneralBooksCubit(ApiService(Dio()))..featchGeneralBooks(),   // spread operator
         ),
         BlocProvider(
-          create: (context) =>BestSellerCubit(ApiService(Dio())),
+          create: (context) =>BestSellerCubit(ApiService(Dio()))..featchSellerBooks(),
         ),
    
       ],

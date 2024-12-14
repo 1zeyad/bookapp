@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bookapp/Feature/Home/Data/models/book_model/book_model.dart';
 import 'package:bookapp/core/helper/Errors/Exception.dart';
 import 'package:dio/dio.dart';
@@ -43,6 +45,9 @@ final Dio dio;
       }
        return books;
     } on DioException catch (e) {
+      log('catch e '+ e.toString());
+      //  log('E Exception =>${e.response!.data.toString()}');
+        // log(e.response!.data.toString());
       HandleException(e);
     }
   }
@@ -73,6 +78,7 @@ final Dio dio;
       final response = await dio.put(url, data: data , queryParameters: queryparms);
       return response.data;
     } on DioException catch (e) {
+     
       HandleException(e);
     }
   }
