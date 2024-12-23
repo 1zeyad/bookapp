@@ -22,8 +22,10 @@ class BestSellerCubit extends Cubit<BestSellerState> {
           'https://www.googleapis.com/books/v1/volumes?Filtering=free-ebooks&q=subject:programming');
       emit(Success_BestSellerBooks(List_books: result));
     } on ServerException catch (e) {
+
       emit(FaluireFetch_BestSeller_Books(
-          Erro_message: e.errormodel.error!.message ??'ssdd'));
+          Erro_message: e.errormodel!.error!.message ??  e.messagefailure ?? 'dddd'));
     }
   }
 }
+

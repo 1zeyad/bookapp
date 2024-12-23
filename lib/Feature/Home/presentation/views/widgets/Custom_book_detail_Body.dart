@@ -1,13 +1,18 @@
-import 'package:bookapp/Feature/Home/presentation/views/widgets/Custom_Rating_book.dart';
-import 'package:bookapp/Feature/Home/presentation/views/widgets/custom_AppBar_books_detail.dart';
-
-import 'package:bookapp/core/utlies/AssetData.dart';
-import 'package:bookapp/core/utlies/Styles.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-class Custom_book_detail_Body extends StatelessWidget {
-  const Custom_book_detail_Body({super.key});
+import 'package:bookapp/Feature/Home/Data/models/book_model/book_model.dart';
+import 'package:bookapp/Feature/Home/presentation/views/widgets/Custom_Rating_book.dart';
+import 'package:bookapp/Feature/Home/presentation/views/widgets/custom_AppBar_books_detail.dart';
+import 'package:bookapp/core/utlies/AssetData.dart';
+import 'package:bookapp/core/utlies/Styles.dart';
 
+class Custom_book_detail_Body extends StatelessWidget {
+  const Custom_book_detail_Body({
+    Key? key,
+    required this.bookModel,
+  }) : super(key: key);
+final BookModel bookModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,7 +32,7 @@ class Custom_book_detail_Body extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: AssetImage(Assetdata.imageitem))),
+                        image: NetworkImage(bookModel.volumeInfo.imageLinks.smallThumbnail))),
               ),
             ),
           ),

@@ -1,7 +1,12 @@
+import 'package:bookapp/Feature/Home/Data/models/book_model/book_model.dart';
+import 'package:bookapp/Feature/Home/presentation/manager/similar_Books/fetch_similar_cubit.dart';
 import 'package:bookapp/Feature/Home/presentation/views/Book_detail_view.dart';
 import 'package:bookapp/Feature/Home/presentation/views/Homeview.dart';
 import 'package:bookapp/Feature/Home/presentation/views/SplachView.dart';
 import 'package:bookapp/Feature/Search/presentation/views/Search_View.dart';
+import 'package:bookapp/core/helper/Api/ApiService.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
 
@@ -20,7 +25,12 @@ abstract class AppRoutes {
       ),
       GoRoute(
         path: AppRoutes.Kbookdetails,
-        builder: (context, state) => book_details_view(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => FetchSimilarCubit(apiService:ApiService(Dio())),
+          child:  book_details_view(
+            bookModel:state.extra as BookModel,
+          ),
+        ),
       ),
       GoRoute(
         path: AppRoutes.Ksearch,

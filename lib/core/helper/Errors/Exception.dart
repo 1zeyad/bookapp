@@ -1,75 +1,73 @@
 import 'dart:developer';
-
 import 'package:bookapp/core/helper/Errors/ErrorModel.dart';
 import 'package:dio/dio.dart';
+import 'dart:convert'; // لإضافة دعم تحويل JSON
 
-import 'dart:convert';  // لإضافة دعم تحويل JSON
+class ServerException implements Exception {
+late Errormodel? errormodel;
+  final String? messagefailure;
 
-class ServerException implements Exception{
-final Errormodel errormodel ;
-
-  ServerException({required this.errormodel});
-  
-
-
+  ServerException({this.errormodel, this.messagefailure});
 }
 
+void HandleException(DioException e) {
+  log('in handle exception');
 
+  if (e.response != null) {
+    switch (e.type) {
+      case DioExceptionType.connectionTimeout:
+        throw ServerException(messagefailure: 'Connection timeout with API server');
 
-  void HandleException(DioException e) {
-      log('in handle exception');
-    if (e.response != null) {
-      switch (e.type) {
-       
-        case DioExceptionType.connectionTimeout:
-          
-        case DioExceptionType.sendTimeout:
-        case DioExceptionType.receiveTimeout:
-        case DioExceptionType.badCertificate:
-        case DioExceptionType.cancel:
-        case DioExceptionType.connectionError:
-        case DioExceptionType.unknown:
-          throw ServerException(errormodel: Errormodel.fromJson(e.response!.data));
-        case DioExceptionType.badResponse:
-         log('in bad response');
-          switch (e.response!.statusCode) {
-             
-            
-            case 400:
-                log("Responseeeeeee"  + e.response!.data.toString());
-                     throw ServerException(
-              
-   errormodel: Errormodel.fromJson(e.response!.data ),
- 
+      case DioExceptionType.sendTimeout:
+        throw ServerException(messagefailure: 'Send timeout with API server');
 
-  
-);
+      case DioExceptionType.receiveTimeout:
+        throw ServerException(messagefailure: 'Receive timeout with API server');
 
-                // output :Responseeeeeee{error: {code: 400, message: Required parameter: q, errors: [{message: Required parameter: q, domain: global, reason: require
- 
-            case 401:
-            
-            
-            case 403:
-            case 404:
-            
-          
-            case 409:
-            case 422:
-             throw ServerException(
-              
-   errormodel: Errormodel.fromJson(e.response!.data ),
- 
+      case DioExceptionType.badCertificate:
+        throw ServerException(messagefailure: 'Bad certificate');
 
-  
-);
+      case DioExceptionType.cancel:
+        throw ServerException(messagefailure: 'The process is cancelled');
+
+      case DioExceptionType.connectionError:
+        throw ServerException(messagefailure: 'Connection error');
+
+      case DioExceptionType.unknown:
+        throw ServerException(messagefailure: 'No internet connection');
 
       
-          }
-      }
-    } 
+
+
+      case DioExceptionType.badResponse:
+        log('in bad response');
+        switch (e.response!.statusCode) {
+          case 400:
+         
+           throw ServerException(
+              errormodel: Errormodel.fromJson(e.response!.data),
+            );
+           
+          case 401:
+          throw ServerException(messagefailure: 'bad respone 401');
+          case 403:
+          throw ServerException(messagefailure: 'bad respone 403');
+          
+          case 404:
+          throw ServerException(messagefailure: 'bad respone 404');
+             
+           
+          case 409:
+          throw ServerException(messagefailure: 'bad respone 409');
+        
+         
+        }
+
+     
     
-  log('in the end');}
+     default:
+        throw ServerException(messagefailure: 'An unexpected error occurred');
+        }
+  } 
 
-// ,
-
+}

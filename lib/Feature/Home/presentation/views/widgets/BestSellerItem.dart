@@ -3,10 +3,10 @@ import 'package:bookapp/Feature/Home/presentation/views/widgets/Custom_Rating_bo
 import 'package:bookapp/Feature/Home/presentation/views/widgets/book_image.dart';
 
 import 'package:bookapp/core/utlies/App_routes.dart';
-import 'package:bookapp/core/utlies/AssetData.dart';
+
 import 'package:bookapp/core/utlies/Styles.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:go_router/go_router.dart';
 
 class BestSeller_item extends StatelessWidget {
@@ -17,7 +17,7 @@ final BookModel bookModel;
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push(AppRoutes.Kbookdetails);
+        GoRouter.of(context).push(AppRoutes.Kbookdetails,extra : bookModel);
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 10.0, bottom: 15),

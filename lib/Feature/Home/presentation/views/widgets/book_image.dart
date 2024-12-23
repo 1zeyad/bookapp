@@ -2,6 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import 'package:bookapp/Feature/Home/Data/models/book_model/book_model.dart';
 import 'package:bookapp/core/utlies/AssetData.dart';
 
 class Book_image extends StatelessWidget {
@@ -27,9 +28,10 @@ class Book_image extends StatelessWidget {
 
 class Book_image2 extends StatelessWidget {
   const Book_image2({
-    super.key,
-  });
-
+    Key? key,
+    required this.image,
+  }) : super(key: key);
+  final String image;
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -41,7 +43,7 @@ class Book_image2 extends StatelessWidget {
             borderRadius: BorderRadius.circular(13),
             color: Colors.red,
             image: DecorationImage(
-                fit: BoxFit.fill, image: AssetImage(Assetdata.imageitem))),
+                fit: BoxFit.fill, image: AssetImage(image))),
       ),
     );
   }
