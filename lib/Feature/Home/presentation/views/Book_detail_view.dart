@@ -1,9 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:bookapp/Feature/Home/presentation/manager/books_you_are_Like/fetch_similar_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:bookapp/Feature/Home/Data/models/book_model/book_model.dart';
-import 'package:bookapp/Feature/Home/presentation/manager/similar_Books/fetch_similar_cubit.dart';
+
 import 'package:bookapp/Feature/Home/presentation/views/widgets/Action_Button.dart';
 import 'package:bookapp/Feature/Home/presentation/views/widgets/Custom_book_detail_Body.dart';
 import 'package:bookapp/Feature/Home/presentation/views/widgets/book_you_can_like_Listview.dart';
@@ -50,7 +51,9 @@ class _book_details_viewState extends State<book_details_view> {
                         SizedBox(
                           height: 25,
                         ),
-                        ActionButton(),
+                        ActionButton(
+                          bookModel:widget.bookModel,
+                        ),
                         Expanded(
                             child: SizedBox(
                           height: 100,
